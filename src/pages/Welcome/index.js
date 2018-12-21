@@ -8,12 +8,15 @@ import {
     TextInput,
     TouchableOpacity,
     StatusBar,
-    AsyncStorage
+    AsyncStorage,
+    ActivityIndicator
 } from "react-native";
 
 export default class Welcome extends Component {
     state = {
-        username: ""
+        username: "",
+        loading: false,
+        error: false
     };
 
     checkUserExists = async username => {
@@ -29,18 +32,20 @@ export default class Welcome extends Component {
     signIn = async () => {
         const { username } = this.state;
         const { navigation } = this.props;
+
+        this.setState({ loading: true });
         try {
             await this.checkUserExists(username);
             await this.saveUser(username);
 
             navigation.navigate("Repositories");
         } catch (err) {
-            Reactotron.log("Usuário não encontrado.");
+            this.setState({ loading: false, error: true });
         }
     };
 
     render() {
-        const { username } = this.state;
+        const { username, loading, error } = this.state;
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />
@@ -49,6 +54,10 @@ export default class Welcome extends Component {
                 <Text style={styles.subtitle}>
                     Para iniciar, informe seu usuário do Github.
                 </Text>
+
+                {error && (
+                    <Text style={styles.error}>Usuário não encontrado</Text>
+                )}
 
                 <View style={styles.form}>
                     <TextInput
@@ -65,7 +74,11 @@ export default class Welcome extends Component {
                         style={styles.button}
                         onPress={this.signIn}
                     >
-                        <Text style={styles.buttonText}>Prosseguir</Text>
+                        {loading ? (
+                            <ActivityIndicator size="small" color="#fff" />
+                        ) : (
+                            <Text style={styles.buttonText}>Prosseguir</Text>
+                        )}
                     </TouchableOpacity>
                 </View>
             </View>
