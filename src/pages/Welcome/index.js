@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Reactotron from "reactotron-react-native";
 import api from "~/services/api";
 import styles from "./styles";
 import {
@@ -48,7 +47,7 @@ export default class Welcome extends Component {
         const { username, loading, error } = this.state;
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="light-content" backgroundColor="#444a5a" />
                 <Text style={styles.title}>Bem-vindo</Text>
 
                 <Text style={styles.subtitle}>
