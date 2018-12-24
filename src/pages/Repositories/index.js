@@ -11,7 +11,6 @@ import api from "~/services/api";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./styles";
 import RepositoryItem from "./RepositoryItem";
-
 export default class Repositories extends Component {
     state = {
         data: [],
