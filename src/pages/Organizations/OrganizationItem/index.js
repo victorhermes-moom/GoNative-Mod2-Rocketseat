@@ -25,7 +25,7 @@ OrganizationItem.propTypes = {
         avatar_url: PropTypes.string,
         login: PropTypes.string,
         description: PropTypes.description
-    }).isRequired
+    })
 };
 
 export default OrganizationItem;
